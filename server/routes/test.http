@@ -1,0 +1,14 @@
+# GET    http://localhost:4000/api/v1/getUser/1
+# Content-Type: application/json
+
+#  {}
+
+
+
+ GET http://localhost:4000/api/v1/getEventMembers/63cf5d0f2a65cbcbfa94526a
+ Content-Type: application/json
+
+{
+    "members":["63cee7ad7acb887eabc8d8ef"]
+}
+
