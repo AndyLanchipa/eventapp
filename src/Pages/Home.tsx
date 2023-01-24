@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { EventCard } from "../Components/EventCard";
 import { Event } from "../Types/Event";
-export const Home = () => {
+import { User } from "../Types/User";
+export const Home: HomeProps = () => {
   const [events, setEvents] = useState<Array<Event>>([]);
+  const [edit, setEdit] = useState<boolean>(false);
 
   const getEvents = () => {
     fetch("http://localhost:4000/api/v1/getAllEvents", {
@@ -20,10 +22,25 @@ export const Home = () => {
     getEvents();
   }, []);
   return (
-    <div>
+    <div className="grid grid-cols-3 m-2">
       {events.map((item) => {
-        return <EventCard title={item.title} description={item.description} />;
+        return (
+          <div>
+            <EventCard
+              onEditSave={(events) => {}}
+              event={item}
+              edit={edit}
+              title={item.title}
+              description={item.description}
+              creator={item.creatorId ?? 0}
+            />
+          </div>
+        );
       })}
     </div>
   );
 };
+
+type HomeType = {};
+
+type HomeProps = (prop: HomeType) => React.ReactElement;

@@ -1,32 +1,59 @@
 import React from "react";
-
-const navBarOptions: string[] = ["Add Event", "Sign In", "Edit Event"];
+import { useNavigate } from "react-router-dom";
+import { User } from "../Types/User";
 
 export const NavBar: NavbarComponent = (props) => {
+  let navigate = useNavigate();
+  const routeChange = () => {
+    if (props.user === null) {
+      navigate("/signIn");
+    } else {
+      props.onSignOut();
+      navigate("/");
+    }
+  };
+
+  const goToCreateEvent = () => {
+    navigate("/addEvents");
+  };
+  const onMainLinkClick = () => {
+    props.onTitleClick(props.user);
+    navigate("/");
+  };
+
   return (
     <div className="bg-slate-900 w-full h-20">
       <div className="flex justify-between h-full w-full">
         <div className="my-auto">
-          <a className="" href="/">
+          <button className={""} onClick={() => onMainLinkClick()}>
             <h1 className="text-white ml-2 text-lg hover:text-blue-400 cursor-pointer">
               Events
             </h1>
-          </a>
+          </button>
         </div>
 
         <div className="flex">
-          {navBarOptions.map((item) => (
-            <div className="my-auto mr-2">
+          <div className="my-auto mr-2">
+            {props.user !== null && (
               <button
                 className="bg-blue-300 rounded  p-1"
-                onClick={() => {
-                  console.log("temp");
-                }}
+                onClick={() => goToCreateEvent()}
               >
-                {item}
+                Add Event
               </button>
-            </div>
-          ))}
+            )}
+            {/* <button
+              className="bg-blue-300 rounded  p-1"
+              onClick={() => goToCreateEvent()}
+            >
+              Add Event
+            </button> */}
+          </div>
+          <div className="my-auto mr-2">
+            <button className="bg-blue-300 rounded  p-1" onClick={routeChange}>
+              {props.user !== null ? "Sign Out" : "Sign In"}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -37,6 +64,9 @@ export const NavBar: NavbarComponent = (props) => {
 
 type NavProps = {
   children?: React.ReactNode;
+  user: User | null;
+  onTitleClick: (user: User | null) => void;
+  onSignOut: () => void;
 };
 
 type NavbarComponent = (props: NavProps) => React.ReactElement;

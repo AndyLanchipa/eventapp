@@ -1,7 +1,8 @@
 export type Event = {
-  eventId: Number;
-  title: String;
-  description: String;
-  creatorId: Number;
-  members: Array<Number>;
+  _id?: string;
+  eventId?: Number;
+  title: string;
+  description: string;
+  creatorId?: Number;
+  members?: Array<Number>;
 };

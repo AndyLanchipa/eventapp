@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const mongo = require("mongodb");
 
 router.post("/signup", (req, res) => {
-  console.log(req.body);
   const user = new Schemas.Users({
     userId: req.body.userId,
     profileUrl: req.body.profileUrl,
@@ -70,9 +69,25 @@ router.get("/getAllEvents", (req, res) => {
   });
 });
 
+router.put("/editEvent/:id", (req, res) => {
+  const event = Schemas.Events.findOne({ _id: id }, (err, eventData) => {
+    if (err) throw err;
+
+    if (!eventData) {
+      return res.status(404).send({ message: "Event not found" });
+    } else {
+      const event = new Schemas.Events(event);
+      event.save();
+      const events = Schemas.Events;
+
+      res.send(JSON.stringify(events.find({})));
+    }
+  });
+});
+
 router.post("/addEvents/:id", (req, res) => {
   const user = Schemas.Users.findOne(
-    { userId: req.params.id },
+    { _id: req.params.id },
     (err, userData) => {
       if (err) throw err;
 
@@ -87,7 +102,7 @@ router.post("/addEvents/:id", (req, res) => {
           members: [userData._id.toString()],
         });
         event.save();
-        console.log(event);
+        res.send(JSON.stringify(event));
       }
     }
   );

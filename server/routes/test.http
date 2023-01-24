@@ -5,10 +5,20 @@
 
 
 
- GET http://localhost:4000/api/v1/getEventMembers/63cf5d0f2a65cbcbfa94526a
- Content-Type: application/json
+#  GET http://localhost:4000/api/v1/getEventMembers/63cf5d0f2a65cbcbfa94526a
+#  Content-Type: application/json
 
-{
-    "members":["63cee7ad7acb887eabc8d8ef"]
-}
+# {
+#     "members":["63cee7ad7acb887eabc8d8ef"]
+# }
 
+# POST http://localhost:4000/api/v1/signup
+# Content-Type: application/json
+
+# {
+#     "userId": 4,
+#     "name": "HypedPup",
+#     "profileUrl": "./userImages/andrewschultzunsplash.jpg"
+#   }
+
+POST http://localhost:4000/api/v1/addEvents/
